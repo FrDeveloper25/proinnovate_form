@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Postulación</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos rápidos para ocultar/mostrar elementos */
+        .hidden { display: none !important; }
+        .link-action { color: #005f73; font-weight: bold; cursor: pointer; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div id="login-view" class="container">
+        <div class="login-box">
+            <h2 id="form-title">Iniciar Sesión</h2>
+            
+            <div class="input-group">
+                <label>Usuario / RUC</label>
+                <input type="text" id="login-ruc" placeholder="Ingrese su RUC">
+            </div>
+
+            <div class="input-group hidden" id="group-razon">
+                <label>Razón Social (Nombre de la Empresa)</label>
+                <input type="text" id="login-razon" placeholder="Ej: Mi Empresa SAC">
+            </div>
+
+            <div class="input-group">
+                <label>Contraseña</label>
+                <input type="password" id="login-pass" placeholder="********">
+            </div>
+
+            <button id="btn-login-action" class="btn" onclick="performLogin()">Ingresar</button>
+            <button id="btn-register-action" class="btn hidden" style="background-color: #0a9396;" onclick="performRegister()">Crear Cuenta</button>
+
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                <span id="text-no-account">¿No tienes cuenta? </span>
+                <span id="link-register" class="link-action" onclick="toggleMode('register')">Regístrate aquí</span>
+                
+                <span id="text-has-account" class="hidden">¿Ya tienes cuenta? </span>
+                <span id="link-login" class="hidden link-action" onclick="toggleMode('login')">Inicia Sesión</span>
+            </p>
+        </div>
+    </div>
+
+    <div id="client-view" class="container hidden">
+        <div style="display:flex; justify-content:space-between; align-items: center;">
+            <h3>Bienvenido: <span id="user-display">Empresa</span></h3>
+            <button onclick="logout()" style="border:none; background:none; color:red; cursor:pointer;">Cerrar Sesión</button>
+        </div>
+
+        <div class="progress-container">
+            <div class="arrow-step" id="p-1">1. Elegibilidad</div>
+            <div class="arrow-step" id="p-2">2. Contrato</div>
+            <div class="arrow-step" id="p-3">3. Pago 1</div>
+            <div class="arrow-step" id="p-4">4. Cita 1</div>
+            <div class="arrow-step" id="p-5">5. Ficha</div>
+            <div class="arrow-step" id="p-6">6. Pago 2</div>
+            <div class="arrow-step" id="p-7">7. Cita 2</div>
+        </div>
+
+        <hr>
+
+        <div id="step-content-1" class="step-content">
+            <h3>Paso 1: Verificación de Elegibilidad</h3>
+            <div style="background:#fff3cd; padding:15px; margin-bottom:20px; border-radius:5px;">
+                <p><strong>Términos:</strong> Declaro no estar en la lista de exclusión (Gobierno, Universidades, etc.).</p>
+                <label><input type="checkbox" id="terms-check"> He leído y Acepto</label>
+            </div>
+            
+            <h4>Requisitos Legales</h4>
+            <div class="form-grid">
+                <div><label><input type="checkbox" class="req-check"> RUC Activo y Habido</label></div>
+                <div><label><input type="checkbox" class="req-check"> 1 Año funcionamiento</label></div>
+                <div><label><input type="checkbox" class="req-check"> Ventas > 13 UIT</label></div>
+                <div><label><input type="checkbox" class="req-check"> Licencia Funcionamiento</label></div>
+            </div>
+
+            <div style="margin-top:20px; border-top:1px solid #ddd; padding-top:15px;">
+                <strong style="color:#d32f2f;">Pregunta Crítica:</strong>
+                <p>¿El Representante Legal (RRLL) cuenta con poderes vigentes inscritos para firmar contratos?</p>
+                <label><input type="radio" name="rrll_power" value="si"> SÍ, tiene poderes.</label>
+                <label style="margin-left: 15px;"><input type="radio" name="rrll_power" value="no"> NO tiene poderes.</label>
+            </div>
+            <button class="btn" onclick="validateStep1()">Validar y Continuar</button>
+        </div>
+
+        <div id="step-content-2" class="step-content hidden">
+            <h3>Paso 2: Firma de Contrato</h3>
+            <div class="upload-zone">📄 Descargar Plantilla de Contrato</div>
+            <div class="upload-zone">
+                📤 <strong>Subir Contrato Firmado (PDF/Imagen)</strong>
+                <input type="file" id="file-contrato" style="display:block; margin: 10px auto;">
+            </div>
+            <button class="btn" onclick="saveStep2()">Enviar Contrato</button>
+        </div>
+
+        <div id="step-content-3" class="step-content hidden">
+            <h3>Paso 3: Primer Pago</h3>
+            <div class="upload-zone">
+                💰 <strong>Subir Voucher de Pago 1</strong>
+                <input type="file" id="file-pago1" style="display:block; margin: 10px auto;">
+            </div>
+            <button class="btn" onclick="saveStep3()">Confirmar Pago</button>
+        </div>
+
+        <div id="step-content-4" class="step-content hidden">
+            <h3>Paso 4: Agendar Primera Entrevista</h3>
+            <div class="input-group">
+                <label>Fecha deseada:</label>
+                <input type="date" id="cita1-date">
+            </div>
+            <button class="btn" onclick="saveStepData(5, {cita1: document.getElementById('cita1-date').value}, [])">Confirmar Cita</button>
+        </div>
+
+        <div id="step-content-5" class="step-content hidden">
+            <h3>Paso 5: Ficha de Postulación</h3>
+            
+            <h4>1. Datos y Certificación</h4>
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>Tipo de Certificación</label>
+                    <select id="form-iso">
+                        <option>ISO 9001</option>
+                        <option>ISO 45001</option>
+                        <option>ISO 27001</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Participación</label>
+                    <select id="form-mod"><option>Individual</option><option>Binorma</option></select>
+                </div>
+            </div>
+
+            <h4>2. Datos de la Empresa</h4>
+            <div class="form-grid">
+                <div class="input-group"><label>RUC</label><input type="text" id="form-ruc" readonly style="background:#eee;"></div>
+                <div class="input-group"><label>Razón Social</label><input type="text" id="form-razon" readonly style="background:#eee;"></div>
+                <div class="input-group"><label>CIIU</label><input type="text" id="form-ciiu"></div>
+                <div class="input-group"><label>Página Web</label><input type="text" id="form-web"></div>
+            </div>
+
+            <div style="background:#e3f2fd; padding:15px; border-radius:5px; margin:20px 0;">
+                <label style="color:#0056b3; font-weight:bold;">¿Es una sociedad BIC?</label>
+                <select id="bic-select" onchange="toggleBic()">
+                    <option value="no">NO</option>
+                    <option value="si">SÍ</option>
+                </select>
+                <div id="bic-upload" class="hidden" style="margin-top:10px;">
+                    <label>Adjuntar Sustento BIC:</label>
+                    <input type="file" id="doc-bic">
+                </div>
+            </div>
+
+            <h4>3. Documentos Legales</h4>
+            <div style="border:1px solid #ddd; padding:15px; border-radius:5px; background:white;">
+                <div style="margin-bottom:10px;"><label>D.1.1 Lista de chequeo</label><input type="file" id="doc-lista"></div>
+                <div style="margin-bottom:10px;"><label>D.1.2 Declaración Jurada Anual</label><input type="file" id="doc-dj"></div>
+                <div style="margin-bottom:10px;"><label>Adjuntar Licencia Funcionamiento</label><input type="file" id="doc-licencia"></div>
+                <div style="margin-bottom:10px;"><label>D.1.4 Ficha RUC</label><input type="file" id="doc-ficha-ruc"></div>
+            </div>
+
+            <button class="btn" onclick="saveBigForm()">Guardar Ficha Completa</button>
+        </div>
+
+        <div id="step-content-6" class="step-content hidden">
+            <h3>Paso 6: Segundo Pago</h3>
+            <div class="upload-zone">
+                💰 <strong>Subir Voucher de Pago 2</strong>
+                <input type="file" id="file-pago2" style="display:block; margin: 10px auto;">
+            </div>
+            <button class="btn" onclick="saveStep6()">Confirmar Pago</button>
+        </div>
+
+        <div id="step-content-7" class="step-content hidden">
+            <h3>Paso 7: Agendar Entrevista Final</h3>
+            <div class="input-group">
+                <label>Fecha:</label>
+                <input type="date" id="cita2-date">
+            </div>
+            <button class="btn" style="background-color:green;" onclick="finishProcess()">FINALIZAR PROCESO</button>
+        </div>
+
+        <div id="finish-view" class="hidden" style="text-align:center; padding:50px;">
+            <h1 style="color:green;">¡Postulación Enviada con Éxito!</h1>
+            <p>Nos pondremos en contacto pronto.</p>
+        </div>
+    </div>
+
+    <div id="admin-view" class="container hidden" style="border-top:5px solid #333;">
+        <div style="display:flex; justify-content:space-between; align-items: center; margin-bottom:20px;">
+            <h2>Panel de Administrador</h2>
+            <button onclick="logout()" class="btn" style="width:auto; background:#d32f2f; margin:0;">Salir</button>
+        </div>
+        
+        <h4>Lista de Empresas Postulantes</h4>
+        <div id="admin-list">
+            <p>Cargando datos...</p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        let currentUser = null;
+        let currentProjectId = null;
+
+        // --- 1. LÓGICA DE INTERFAZ (LOGIN vs REGISTRO) ---
+        function toggleMode(mode) {
+            const title = document.getElementById('form-title');
+            const groupRazon = document.getElementById('group-razon');
+            const btnLogin = document.getElementById('btn-login-action');
+            const btnRegister = document.getElementById('btn-register-action');
+            
+            const textNoAccount = document.getElementById('text-no-account');
+            const linkRegister = document.getElementById('link-register');
+            const textHasAccount = document.getElementById('text-has-account');
+            const linkLogin = document.getElementById('link-login');
+
+            // Limpiar inputs
+            document.getElementById('login-razon').value = '';
+            document.getElementById('login-pass').value = '';
+
+            if (mode === 'register') {
+                title.innerText = 'Crear Nueva Cuenta';
+                groupRazon.classList.remove('hidden'); // Muestra campo Razón Social
+                btnLogin.classList.add('hidden');
+                btnRegister.classList.remove('hidden');
+
+                textNoAccount.classList.add('hidden');
+                linkRegister.classList.add('hidden');
+                textHasAccount.classList.remove('hidden');
+                linkLogin.classList.remove('hidden');
+            } else {
+                title.innerText = 'Iniciar Sesión';
+                groupRazon.classList.add('hidden'); // Oculta campo Razón Social
+                btnLogin.classList.remove('hidden');
+                btnRegister.classList.add('hidden');
+
+                textNoAccount.classList.remove('hidden');
+                linkRegister.classList.remove('hidden');
+                textHasAccount.classList.add('hidden');
+                linkLogin.classList.add('hidden');
+            }
+        }
+
+        // --- 2. CONEXIÓN AL SERVIDOR (LOGIN) ---
+        async function performLogin() {
+            const ruc = document.getElementById('login-ruc').value;
+            const pass = document.getElementById('login-pass').value;
+
+            if (!ruc || !pass) return alert("Ingrese RUC y Contraseña");
+
+            const res = await fetch(API_URL + '/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ruc, password: pass })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                enterSystem(data);
+            } else {
+                alert(data.msg); // Muestra mensaje del servidor
+            }
+        }
+
+        // --- 3. CONEXIÓN AL SERVIDOR (REGISTRO) ---
+        async function performRegister() {
+            const ruc = document.getElementById('login-ruc').value;
+            const razon = document.getElementById('login-razon').value;
+            const pass = document.getElementById('login-pass').value;
+
+            if (!ruc || !razon || !pass) return alert("Complete todos los campos para registrarse");
+
+            const res = await fetch(API_URL + '/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ruc, razon, password: pass })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                alert("Cuenta creada con éxito.");
+                enterSystem(data);
+            } else {
+                alert(data.msg);
+            }
+        }
+
+        function enterSystem(data) {
+            currentUser = data.user;
+            if (currentUser.role === 'admin') {
+                loadAdmin();
+            } else {
+                currentProjectId = data.project.id;
+                document.getElementById('user-display').innerText = currentUser.full_name;
+                document.getElementById('form-ruc').value = currentUser.username;
+                document.getElementById('form-razon').value = currentUser.full_name;
+                document.getElementById('login-view').classList.add('hidden');
+                document.getElementById('client-view').classList.remove('hidden');
+                updateProgress(data.project.current_step);
+            }
+        }
+
+        // --- 4. FUNCIÓN MAESTRA DE GUARDADO (Archivos + Datos) ---
+        async function saveStepData(nextStep, textData, fileIds) {
+            const formData = new FormData();
+            formData.append('projectId', currentProjectId);
+            formData.append('step', nextStep);
+            formData.append('formDataJSON', JSON.stringify(textData));
+
+            fileIds.forEach(id => {
+                const input = document.getElementById(id);
+                if(input && input.files[0]) formData.append(id, input.files[0]);
+            });
+
+            try {
+                const res = await fetch(API_URL + '/save-step', { method:'POST', body: formData });
+                const data = await res.json();
+                if(data.success) updateProgress(nextStep);
+                else alert("Error al guardar.");
+            } catch (e) {
+                alert("Error de conexión con el servidor.");
+            }
+        }
+
+        // --- 5. FUNCIONES ESPECÍFICAS DE CADA PASO ---
+        function validateStep1() {
+            const terms = document.getElementById('terms-check').checked;
+            const powers = document.querySelector('input[name="rrll_power"]:checked')?.value;
+            
+            if(!terms) return alert("Debe aceptar los términos.");
+            if(!powers) return alert("Debe responder si tiene poderes.");
+            if(powers === 'no') return alert("Sin poderes inscritos no puede continuar.");
+            
+            saveStepData(2, { powers_accepted: true }, []);
+        }
+
+        function saveStep2() { 
+            if(!document.getElementById('file-contrato').files[0]) return alert("Adjunte el contrato.");
+            saveStepData(3, {}, ['file-contrato']); 
+        }
+        
+        function saveStep3() { 
+            if(!document.getElementById('file-pago1').files[0]) return alert("Adjunte el pago.");
+            saveStepData(4, {}, ['file-pago1']); 
+        }
+
+        function saveBigForm() {
+            const data = {
+                iso: document.getElementById('form-iso').value,
+                ciiu: document.getElementById('form-ciiu').value,
+                web: document.getElementById('form-web').value,
+                bic: document.getElementById('bic-select').value
+            };
+            const files = ['doc-lista', 'doc-dj', 'doc-licencia', 'doc-ficha-ruc', 'doc-bic'];
+            saveStepData(6, data, files);
+        }
+
+        function saveStep6() { 
+            if(!document.getElementById('file-pago2').files[0]) return alert("Adjunte el segundo pago.");
+            saveStepData(7, {}, ['file-pago2']); 
+        }
+
+        function finishProcess() {
+            document.getElementById('client-view').classList.add('hidden');
+            document.getElementById('finish-view').classList.remove('hidden');
+        }
+
+        // --- UTILIDADES ---
+        function updateProgress(step) {
+            document.querySelectorAll('.step-content').forEach(d => d.classList.add('hidden'));
+            const current = document.getElementById('step-content-'+step);
+            if(current) current.classList.remove('hidden');
+            
+            for(let i=1; i<=7; i++) {
+                const arrow = document.getElementById('p-'+i);
+                if(i <= step) arrow.classList.add('active'); else arrow.classList.remove('active');
+            }
+            window.scrollTo(0,0);
+        }
+
+        function toggleBic() {
+            const val = document.getElementById('bic-select').value;
+            if(val==='si') document.getElementById('bic-upload').classList.remove('hidden');
+            else document.getElementById('bic-upload').classList.add('hidden');
+        }
+
+        async function loadAdmin() {
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('admin-view').classList.remove('hidden');
+            try {
+                const res = await fetch(API_URL + '/admin/projects');
+                const projects = await res.json();
+                const list = document.getElementById('admin-list');
+                
+                if(projects.length === 0) {
+                    list.innerHTML = "<p>No hay empresas registradas aún.</p>";
+                    return;
+                }
+
+                list.innerHTML = projects.map(p => `
+                    <div style="border:1px solid #ccc; padding:15px; margin-bottom:10px; background:white; border-radius:5px;">
+                        <h4 style="margin:0; color:#005f73;">${p.empresa}</h4>
+                        <small>RUC: ${p.ruc} | Estado: Paso ${p.current_step}</small>
+                        <br>
+                        ${p.file_paths && p.file_paths.file_contrato ? 
+                            `<a href="${p.file_paths.file_contrato}" target="_blank" style="color:blue;">Ver Contrato</a>` : 
+                            '<span style="color:gray;">Sin contrato</span>'}
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function logout() { location.reload(); }
+    </script>
+</body>
+</html>
