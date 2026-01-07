@@ -1,22 +1,249 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Postulación - Backap</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos rápidos para ocultar/mostrar elementos - update*/
-        .hidden { display: none !important; }
-        .link-action { color: #005f73; font-weight: bold; cursor: pointer; text-decoration: underline; }
+        .hidden {
+            display: none !important;
+        }
+
+        .link-action {
+            color: #005f73;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+        }
     </style>
 </head>
+
 <body>
+    <div>
+        <!-- POPUP BIENVENIDA -->
+        <div id="welcome-modal" class="modal-overlay hidden">
+            <div class="modal-box">
+                <!-- <h2> ¡Bienvenido!</h2> -->
+                <section class="requisitos-legales">
+                    <!-- <h2>REQUISITOS LEGALES</h2> -->
+
+
+                    <div class="modal-box">
+                        <h2>¡Bienvenido!</h2>
+                        <h3>REQUISITOS LEGALES</h3>
+                        <p class="modal-note">
+                            Las respuestas son <strong>SÍ / NO</strong>. Los <strong>NO</strong> descalifican.
+                        </p>
+
+                        <div class="modal-content">
+                            <div>
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        a. Persona jurídica legalmente constituida en el país e inscrita en los
+                                        Registros Públicos.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        b. Contar con Registro Único de Contribuyentes (RUC) activo y habido e
+                                        información actualizada del representante legal.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        c. Acreditar por lo menos un (01) año de funcionamiento continuo en los últimos
+                                        doce (12) meses.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        d. Registrar ventas anuales mínimas de 13 UIT y no superar las 2300 UIT.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        e. Contar con licencia de funcionamiento vigente.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        o. Que los miembros del Equipo Técnico (Coordinador General y Coordinador
+                                        Administrativo)
+                                        financiados con recursos de la Entidad Solicitante, y las empresas en las que
+                                        estos sean
+                                        accionistas, gerente general o representante legal, no podrán ser proveedores de
+                                        bienes,
+                                        servicios ni consultorías para las actividades del proyecto. Esto se extiende a
+                                        los
+                                        parientes del miembro del Equipo Técnico hasta el tercer grado de consanguinidad
+                                        y/o
+                                        segundo de afinidad por razones de matrimonio, unión de hecho o convivencia.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        n. Los miembros del equipo técnico, así como los accionistas, socios y
+                                        representantes legales
+                                        de la entidad solicitante no deben tener relación contractual, consanguinidad
+                                        y/o afinidad
+                                        con las personas con vínculo laboral y/o contractual de ProInnóvate hasta el
+                                        cuarto grado
+                                        de consanguinidad y/o afinidad por razones de matrimonio, unión de hecho o
+                                        convivencia.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        p. En caso de encontrarse calificados en la central de riesgos de la
+                                        Superintendencia de
+                                        Banca, Seguros y AFP, no podrán tener una categoría inferior a “cliente con
+                                        problemas
+                                        potenciales” (CPP) al momento de la postulación.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        q. El representante legal y/o apoderado(s) y/o socios de una Entidad Solicitante
+                                        no podrá ser
+                                        el representante legal y/o apoderado(s) y/o socio(s) de otra Entidad
+                                        Solicitante.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+
+
+                                <div class="requirements-grid">
+                                    <div class="req-text">
+                                        r. No haber desistido del proceso de adjudicación después de haber sido evaluado
+                                        y aprobado
+                                        en convocatorias anteriores a la presente. Sin embargo, la entidad podrá
+                                        presentar un
+                                        sustento de los motivos de desistimiento, los que serán evaluados por
+                                        ProInnóvate.
+                                    </div>
+                                    <div class="req-check">
+                                        <input type="checkbox" class="welcome-modal-check">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <section class="no-elegibles">
+                            <h3>02. No son elegibles como Entidades Solicitantes</h3>
+
+                            <ol type="a">
+                                <li>
+                                    Persona natural con o sin negocio.
+                                </li>
+
+                                <li>
+                                    Universidades, instituciones de educación públicos (institutos, colegios), centros
+                                    de
+                                    investigación, desarrollo e innovación públicos.
+                                </li>
+
+                                <li>
+                                    Empresas públicas de derecho privado / empresas privadas de derecho público.
+                                </li>
+
+                                <li>
+                                    Instituciones de cooperación internacional.
+                                </li>
+
+                                <li>
+                                    Instituciones públicas (gobierno central, regional o local).
+                                </li>
+
+                                <li>
+                                    Ninguna otra que no se ajuste a lo señalado en la sección C de las bases.
+                                </li>
+
+                                <li>
+                                    La Entidad Solicitante que tenga en ejecución uno o más Convenios/Contratos de
+                                    Adjudicación de Recursos No Reembolsables (RNR) con ProInnóvate.
+                                </li>
+                            </ol>
+
+                            <h3>03. No serán considerados elegibles aquellos Formularios de Postulación que:</h3>
+
+                            <ol type="a">
+                                <li>
+                                    Muestren indicios de plagio o copia total o parcial de otros formularios de
+                                    postulación/proyectos similares.
+                                </li>
+
+                                <li>
+                                    Certificaciones que busquen renovaciones o ampliación del alcance.
+                                </li>
+
+                                <li>
+                                    Sean cofinanciados con recursos provenientes de otros fondos de promoción del
+                                    Estado.
+                                    (proyectos de certificación)
+                                </li>
+
+                                <li>
+                                    Que no cumplan con los objetivos y alcance del concurso.
+                                </li>
+                            </ol>
+                        </section>
+
+                        <button class="btn" onclick="validateWelcome()">Aceptar requisitos legales</button>
+                    </div>
+
+
+                </section>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
 
     <div id="login-view" class="container">
         <div class="login-box">
             <h2 id="form-title">Iniciar Sesión</h2>
-            
+
             <div class="input-group">
                 <label>Usuario / RUC</label>
                 <input type="text" id="login-ruc" placeholder="Ingrese su RUC">
@@ -33,12 +260,13 @@
             </div>
 
             <button id="btn-login-action" class="btn" onclick="performLogin()">Ingresar</button>
-            <button id="btn-register-action" class="btn hidden" style="background-color: #0a9396;" onclick="performRegister()">Crear Cuenta</button>
+            <button id="btn-register-action" class="btn hidden" style="background-color: #0a9396;"
+                onclick="performRegister()">Crear Cuenta</button>
 
             <p style="margin-top: 20px; font-size: 0.9em;">
                 <span id="text-no-account">¿No tienes cuenta? </span>
                 <span id="link-register" class="link-action" onclick="toggleMode('register')">Regístrate aquí</span>
-                
+
                 <span id="text-has-account" class="hidden">¿Ya tienes cuenta? </span>
                 <span id="link-login" class="hidden link-action" onclick="toggleMode('login')">Inicia Sesión</span>
             </p>
@@ -48,7 +276,8 @@
     <div id="client-view" class="container hidden">
         <div style="display:flex; justify-content:space-between; align-items: center;">
             <h3>Bienvenido: <span id="user-display">Empresa</span></h3>
-            <button onclick="logout()" style="border:none; background:none; color:red; cursor:pointer;">Cerrar Sesión</button>
+            <button onclick="logout()" style="border:none; background:none; color:red; cursor:pointer;">Cerrar
+                Sesión</button>
         </div>
 
         <div class="progress-container">
@@ -66,23 +295,29 @@
         <div id="step-content-1" class="step-content">
             <h3>Paso 1: Verificación de Elegibilidad</h3>
             <div style="background:#fff3cd; padding:15px; margin-bottom:20px; border-radius:5px;">
-                <p><strong>Términos:</strong> Declaro no estar en la lista de exclusión (Gobierno, Universidades, etc.).</p>
-                <label><input type="checkbox" id="terms-check"> He leído y Acepto</label>
+                <p><strong>Términos:</strong> Declaro no estar en la lista de exclusión (Gobierno, Universidades, etc.).
+                </p>
+                <label><input type="checkbox" class="welcome-check" id="terms-check"> He leído y Acepto</label>
             </div>
-            
+
             <h4>Requisitos Legales</h4>
             <div class="form-grid">
-                <div><label><input type="checkbox" class="req-check"> RUC Activo y Habido</label></div>
-                <div><label><input type="checkbox" class="req-check"> 1 Año funcionamiento</label></div>
-                <div><label><input type="checkbox" class="req-check"> Ventas > 13 UIT</label></div>
-                <div><label><input type="checkbox" class="req-check"> Licencia Funcionamiento</label></div>
+                <div><label><input type="checkbox" class="welcome-check" class="req-check"> RUC Activo y Habido</label>
+                </div>
+                <div><label><input type="checkbox" class="welcome-check" class="req-check"> 1 Año funcionamiento</label>
+                </div>
+                <div><label><input type="checkbox" class="welcome-check" class="req-check"> Ventas > 13 UIT</label>
+                </div>
+                <div><label><input type="checkbox" class="welcome-check" class="req-check"> Licencia
+                        Funcionamiento</label></div>
             </div>
 
             <div style="margin-top:20px; border-top:1px solid #ddd; padding-top:15px;">
                 <strong style="color:#d32f2f;">Pregunta Crítica:</strong>
                 <p>¿El Representante Legal (RRLL) cuenta con poderes vigentes inscritos para firmar contratos?</p>
                 <label><input type="radio" name="rrll_power" value="si"> SÍ, tiene poderes.</label>
-                <label style="margin-left: 15px;"><input type="radio" name="rrll_power" value="no"> NO tiene poderes.</label>
+                <label style="margin-left: 15px;"><input type="radio" name="rrll_power" value="no"> NO tiene
+                    poderes.</label>
             </div>
             <button class="btn" onclick="validateStep1()">Validar y Continuar</button>
         </div>
@@ -112,12 +347,14 @@
                 <label>Fecha deseada:</label>
                 <input type="date" id="cita1-date">
             </div>
-            <button class="btn" onclick="saveStepData(5, {cita1: document.getElementById('cita1-date').value}, [])">Confirmar Cita</button>
+            <button class="btn"
+                onclick="saveStepData(5, {cita1: document.getElementById('cita1-date').value}, [])">Confirmar
+                Cita</button>
         </div>
 
         <div id="step-content-5" class="step-content hidden">
             <h3>Paso 5: Ficha de Postulación</h3>
-            
+
             <h4>1. Datos y Certificación</h4>
             <div class="form-grid">
                 <div class="input-group">
@@ -130,14 +367,19 @@
                 </div>
                 <div class="input-group">
                     <label>Participación</label>
-                    <select id="form-mod"><option>Individual</option><option>Binorma</option></select>
+                    <select id="form-mod">
+                        <option>Individual</option>
+                        <option>Binorma</option>
+                    </select>
                 </div>
             </div>
 
             <h4>2. Datos de la Empresa</h4>
             <div class="form-grid">
-                <div class="input-group"><label>RUC</label><input type="text" id="form-ruc" readonly style="background:#eee;"></div>
-                <div class="input-group"><label>Razón Social</label><input type="text" id="form-razon" readonly style="background:#eee;"></div>
+                <div class="input-group"><label>RUC</label><input type="text" id="form-ruc" readonly
+                        style="background:#eee;"></div>
+                <div class="input-group"><label>Razón Social</label><input type="text" id="form-razon" readonly
+                        style="background:#eee;"></div>
                 <div class="input-group"><label>CIIU</label><input type="text" id="form-ciiu"></div>
                 <div class="input-group"><label>Página Web</label><input type="text" id="form-web"></div>
             </div>
@@ -156,10 +398,14 @@
 
             <h4>3. Documentos Legales</h4>
             <div style="border:1px solid #ddd; padding:15px; border-radius:5px; background:white;">
-                <div style="margin-bottom:10px;"><label>D.1.1 Lista de chequeo</label><input type="file" id="doc-lista"></div>
-                <div style="margin-bottom:10px;"><label>D.1.2 Declaración Jurada Anual</label><input type="file" id="doc-dj"></div>
-                <div style="margin-bottom:10px;"><label>Adjuntar Licencia Funcionamiento</label><input type="file" id="doc-licencia"></div>
-                <div style="margin-bottom:10px;"><label>D.1.4 Ficha RUC</label><input type="file" id="doc-ficha-ruc"></div>
+                <div style="margin-bottom:10px;"><label>D.1.1 Lista de chequeo</label><input type="file" id="doc-lista">
+                </div>
+                <div style="margin-bottom:10px;"><label>D.1.2 Declaración Jurada Anual</label><input type="file"
+                        id="doc-dj"></div>
+                <div style="margin-bottom:10px;"><label>Adjuntar Licencia Funcionamiento</label><input type="file"
+                        id="doc-licencia"></div>
+                <div style="margin-bottom:10px;"><label>D.1.4 Ficha RUC</label><input type="file" id="doc-ficha-ruc">
+                </div>
             </div>
 
             <button class="btn" onclick="saveBigForm()">Guardar Ficha Completa</button>
@@ -194,7 +440,7 @@
             <h2>Panel de Administrador</h2>
             <button onclick="logout()" class="btn" style="width:auto; background:#d32f2f; margin:0;">Salir</button>
         </div>
-        
+
         <h4>Lista de Empresas Postulantes</h4>
         <div id="admin-list">
             <p>Cargando datos...</p>
@@ -212,7 +458,7 @@
             const groupRazon = document.getElementById('group-razon');
             const btnLogin = document.getElementById('btn-login-action');
             const btnRegister = document.getElementById('btn-register-action');
-            
+
             const textNoAccount = document.getElementById('text-no-account');
             const linkRegister = document.getElementById('link-register');
             const textHasAccount = document.getElementById('text-has-account');
@@ -301,6 +547,13 @@
                 document.getElementById('login-view').classList.add('hidden');
                 document.getElementById('client-view').classList.remove('hidden');
                 updateProgress(data.project.current_step);
+
+                document.getElementById('client-view').classList.remove('hidden');
+                updateProgress(data.project.current_step);
+
+                // MOSTRAR POPUP
+                showWelcomePopup();
+
             }
         }
 
@@ -313,13 +566,13 @@
 
             fileIds.forEach(id => {
                 const input = document.getElementById(id);
-                if(input && input.files[0]) formData.append(id, input.files[0]);
+                if (input && input.files[0]) formData.append(id, input.files[0]);
             });
 
             try {
-                const res = await fetch(API_URL + '/save-step', { method:'POST', body: formData });
+                const res = await fetch(API_URL + '/save-step', { method: 'POST', body: formData });
                 const data = await res.json();
-                if(data.success) updateProgress(nextStep);
+                if (data.success) updateProgress(nextStep);
                 else alert("Error al guardar.");
             } catch (e) {
                 alert("Error de conexión con el servidor.");
@@ -330,22 +583,22 @@
         function validateStep1() {
             const terms = document.getElementById('terms-check').checked;
             const powers = document.querySelector('input[name="rrll_power"]:checked')?.value;
-            
-            if(!terms) return alert("Debe aceptar los términos.");
-            if(!powers) return alert("Debe responder si tiene poderes.");
-            if(powers === 'no') return alert("Sin poderes inscritos no puede continuar.");
-            
+
+            if (!terms) return alert("Debe aceptar los términos.");
+            if (!powers) return alert("Debe responder si tiene poderes.");
+            if (powers === 'no') return alert("Sin poderes inscritos no puede continuar.");
+
             saveStepData(2, { powers_accepted: true }, []);
         }
 
-        function saveStep2() { 
-            if(!document.getElementById('file-contrato').files[0]) return alert("Adjunte el contrato.");
-            saveStepData(3, {}, ['file-contrato']); 
+        function saveStep2() {
+            if (!document.getElementById('file-contrato').files[0]) return alert("Adjunte el contrato.");
+            saveStepData(3, {}, ['file-contrato']);
         }
-        
-        function saveStep3() { 
-            if(!document.getElementById('file-pago1').files[0]) return alert("Adjunte el pago.");
-            saveStepData(4, {}, ['file-pago1']); 
+
+        function saveStep3() {
+            if (!document.getElementById('file-pago1').files[0]) return alert("Adjunte el pago.");
+            saveStepData(4, {}, ['file-pago1']);
         }
 
         function saveBigForm() {
@@ -359,9 +612,9 @@
             saveStepData(6, data, files);
         }
 
-        function saveStep6() { 
-            if(!document.getElementById('file-pago2').files[0]) return alert("Adjunte el segundo pago.");
-            saveStepData(7, {}, ['file-pago2']); 
+        function saveStep6() {
+            if (!document.getElementById('file-pago2').files[0]) return alert("Adjunte el segundo pago.");
+            saveStepData(7, {}, ['file-pago2']);
         }
 
         function finishProcess() {
@@ -372,19 +625,19 @@
         // --- UTILIDADES ---
         function updateProgress(step) {
             document.querySelectorAll('.step-content').forEach(d => d.classList.add('hidden'));
-            const current = document.getElementById('step-content-'+step);
-            if(current) current.classList.remove('hidden');
-            
-            for(let i=1; i<=7; i++) {
-                const arrow = document.getElementById('p-'+i);
-                if(i <= step) arrow.classList.add('active'); else arrow.classList.remove('active');
+            const current = document.getElementById('step-content-' + step);
+            if (current) current.classList.remove('hidden');
+
+            for (let i = 1; i <= 7; i++) {
+                const arrow = document.getElementById('p-' + i);
+                if (i <= step) arrow.classList.add('active'); else arrow.classList.remove('active');
             }
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
         }
 
         function toggleBic() {
             const val = document.getElementById('bic-select').value;
-            if(val==='si') document.getElementById('bic-upload').classList.remove('hidden');
+            if (val === 'si') document.getElementById('bic-upload').classList.remove('hidden');
             else document.getElementById('bic-upload').classList.add('hidden');
         }
 
@@ -395,8 +648,8 @@
                 const res = await fetch(API_URL + '/admin/projects');
                 const projects = await res.json();
                 const list = document.getElementById('admin-list');
-                
-                if(projects.length === 0) {
+
+                if (projects.length === 0) {
                     list.innerHTML = "<p>No hay empresas registradas aún.</p>";
                     return;
                 }
@@ -406,9 +659,9 @@
                         <h4 style="margin:0; color:#005f73;">${p.empresa}</h4>
                         <small>RUC: ${p.ruc} | Estado: Paso ${p.current_step}</small>
                         <br>
-                        ${p.file_paths && p.file_paths.file_contrato ? 
-                            `<a href="${p.file_paths.file_contrato}" target="_blank" style="color:blue;">Ver Contrato</a>` : 
-                            '<span style="color:gray;">Sin contrato</span>'}
+                        ${p.file_paths && p.file_paths.file_contrato ?
+                        `<a href="${p.file_paths.file_contrato}" target="_blank" style="color:blue;">Ver Contrato</a>` :
+                        '<span style="color:gray;">Sin contrato</span>'}
                     </div>
                 `).join('');
             } catch (e) {
@@ -417,6 +670,38 @@
         }
 
         function logout() { location.reload(); }
+
+
+
+        function showWelcomePopup() {
+            document.getElementById('welcome-modal').classList.remove('hidden');
+        }
+
+        function closeWelcome() {
+            document.getElementById('welcome-modal').classList.add('hidden');
+        }
+
     </script>
+
+    <script>
+        function validateWelcome() {
+            const checks = document.querySelectorAll('#welcome-modal .welcome-modal-check');
+
+            for (let chk of checks) {
+                if (!chk.checked) {
+                    alert('⚠️ Debe aceptar TODOS los requisitos legales para continuar.');
+                    return;
+                }
+            }
+
+            closeWelcome();
+        }
+
+    </script>
+
+    <!-- MDB -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.3.0/mdb.umd.min.js"></script>
 </body>
+
 </html>
