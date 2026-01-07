@@ -1,11 +1,64 @@
-:root {
+/* :root {
     --primary: #005f73;
     --secondary: #0a9396;
     --arrow-active: #b91c1c;
     --arrow-inactive: #e0e0e0;
     --bg-light: #f4f4f9;
+} */
+
+
+:root {
+    /* Colores Backap */
+    --bk-primary-dark: #0A5E61;
+    --bk-primary-blue: #305BD1;
+    --bk-accent-green: #00DBA7;
+    --bk-bg-text: #395252;
+
+    --bk-bg-light: #F6F8F9;
+    --bk-border-light: #E4E8EB;
+    --bk-warning-bg: #FFF4CC;
+    --bk-error: #D9534F;
+
+    /* Tipografías */
+    --font-body: 'Poppins', sans-serif;
 }
 
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background-color: var(--bk-bg-light);
+    color: var(--bk-bg-text);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-title);
+    margin: 0;
+}
+
+button {
+    font-family: var(--font-body);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.link-action {
+    color: var(--bk-accent-green);
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+
+/* 
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: var(--bg-light);
@@ -13,7 +66,7 @@ body {
     padding: 20px;
     display: flex;
     justify-content: center;
-}
+} */
 
 .container {
     background-color: white;
@@ -37,6 +90,12 @@ h4 {
     color: var(--secondary);
     border-bottom: 1px solid #ddd;
     margin-top: 25px;
+}
+
+.logo-box{
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 /* LOGIN */
@@ -137,7 +196,7 @@ textarea {
 
 /* BOTONES Y TABLAS */
 .btn {
-    background-color: var(--primary);
+    background-color: var(--bk-primary-dark);
     color: white;
     border: none;
     padding: 12px;
@@ -148,7 +207,7 @@ textarea {
 }
 
 .btn:hover {
-    background-color: #004494;
+    background-color: var(--bk-accent-green);
 }
 
 .upload-zone {
@@ -175,6 +234,11 @@ textarea {
 
 
 /* ===== MODAL LEGALES ===== */
+.tittle-modal{
+  width: fit-content;
+  margin: 0 auto;
+}
+
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -183,6 +247,7 @@ textarea {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+
 }
 
 .modal-box {
@@ -190,7 +255,6 @@ textarea {
     padding: 20px;
     border-radius: 10px;
     width: 90%;
-    max-height: 80vh;
     animation: fadeIn 0.3s ease;
 }
 
@@ -201,13 +265,62 @@ textarea {
     flex: 1;
 }
 
-.modal-box h2 {
-    margin-top: 0;
-    color: #005f73;
+.requirements-grid {
+    display: flex;
 }
 
-.requirements-grid{
-    display: flex;
+.welcome-modal-check{
+      appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--bk-bg-text);;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.welcome-modal-check:checked {
+  background-color: var(--bk-accent-green);
+  border-color: var(--bk-accent-green);
+}
+
+.welcome-modal-check:checked::after {
+  content: "✓";
+  color: white;
+  position: absolute;
+  top: -1px;
+  left: 3px;
+  font-size: 14px;
+}
+
+
+/* ===============================
+   GRID DE REQUISITOS LEGALES
+   =============================== */
+
+.requirements-grid {
+  display: grid;
+  grid-template-columns: 1fr 32px; /* texto | checkbox */
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+/* .req-text {
+  font-size: 14px;
+  line-height: 1.5;
+} */
+.req-check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-modal-check {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color:var(--bk-primary-dark);
 }
 
 

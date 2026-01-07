@@ -6,18 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Postulación - Backap</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .hidden {
-            display: none !important;
-        }
-
-        .link-action {
-            color: #005f73;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-    </style>
 </head>
 
 <body>
@@ -25,13 +13,13 @@
         <!-- POPUP BIENVENIDA -->
         <div id="welcome-modal" class="modal-overlay hidden">
             <div class="modal-box">
-                <!-- <h2> ¡Bienvenido!</h2> -->
+
+                <div class="tittle-modal">
+                    <h2>¡Bienvenido!</h2>
+                </div>
                 <section class="requisitos-legales">
-                    <!-- <h2>REQUISITOS LEGALES</h2> -->
-
-
                     <div class="modal-box">
-                        <h2>¡Bienvenido!</h2>
+
                         <h3>REQUISITOS LEGALES</h3>
                         <p class="modal-note">
                             Las respuestas son <strong>SÍ / NO</strong>. Los <strong>NO</strong> descalifican.
@@ -164,9 +152,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <section class="no-elegibles">
+                               <section class="no-elegibles">
                             <h3>02. No son elegibles como Entidades Solicitantes</h3>
 
                             <ol type="a">
@@ -225,6 +212,9 @@
                                 </li>
                             </ol>
                         </section>
+                        </div>
+
+                     
 
                         <button class="btn" onclick="validateWelcome()">Aceptar requisitos legales</button>
                     </div>
@@ -241,8 +231,17 @@
 
 
     <div id="login-view" class="container">
+
+        <div class="logo-box">
+
+            <img src="./assets/img/logo_backap.png" class="logo" />
+        </div>
+
         <div class="login-box">
-            <h2 id="form-title">Iniciar Sesión</h2>
+
+
+
+            <h2 id="form-title" style="margin-bottom: 8%;">Iniciar Sesión</h2>
 
             <div class="input-group">
                 <label>Usuario / RUC</label>
@@ -259,13 +258,12 @@
                 <input type="password" id="login-pass" placeholder="********">
             </div>
 
-            <button id="btn-login-action" class="btn" onclick="performLogin()">Ingresar</button>
-            <button id="btn-register-action" class="btn hidden" style="background-color: #0a9396;"
-                onclick="performRegister()">Crear Cuenta</button>
+            <button id="btn-login-action" class="btn ingresarButton" onclick="performLogin()">Ingresar</button>
+            <button id="btn-register-action" class="btn hidden" onclick="performRegister()">Crear Cuenta</button>
 
             <p style="margin-top: 20px; font-size: 0.9em;">
                 <span id="text-no-account">¿No tienes cuenta? </span>
-                <span id="link-register" class="link-action" onclick="toggleMode('register')">Regístrate aquí</span>
+                <span id="link-register" class="link-action" onclick="toggleMode('register')">Registrate aquí</span>
 
                 <span id="text-has-account" class="hidden">¿Ya tienes cuenta? </span>
                 <span id="link-login" class="hidden link-action" onclick="toggleMode('login')">Inicia Sesión</span>
@@ -691,6 +689,7 @@
                 if (!chk.checked) {
                     alert('⚠️ Debe aceptar TODOS los requisitos legales para continuar.');
                     return;
+                    
                 }
             }
 
@@ -698,10 +697,6 @@
         }
 
     </script>
-
-    <!-- MDB -->
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.3.0/mdb.umd.min.js"></script>
 </body>
 
 </html>
